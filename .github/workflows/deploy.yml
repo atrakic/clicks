@@ -1,0 +1,36 @@
+name: 'deploy'
+
+on:
+  workflow_dispatch:
+    inputs:
+      git_remote_url:
+        description: 'Remote git url'
+        required: true
+        default: 'ssh://dokku@dokku-foo.northeurope.cloudapp.azure.com:22/appname'
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository_owner }}/clicks
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cloning repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup env vars
+        run: |
+          echo "IMAGE_TAG=$(cat VERSION)" >> $GITHUB_ENV
+
+      - name: Push to dokku
+        uses: dokku/github-action@master
+        env:
+          GIT_SSH_COMMAND: 'ssh -vvv'
+        with:
+          #git_push_flags: '-vvv'
+          git_remote_url: ${{ github.event.inputs.git_remote_url }}
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          deploy_docker_image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
