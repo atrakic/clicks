@@ -2,7 +2,7 @@ MAKEFLAGS += --silent
 
 BASEDIR=$(shell git rev-parse --show-toplevel)
 
-.PHONY: all clean
+.PHONY: all infra clean restore update backup test deploy
 
 all:
 	$(BASEDIR)/scripts/configure.sh
