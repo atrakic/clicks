@@ -1,5 +1,16 @@
 services:
-  app:
+  clicks:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        - CLICKS_VERSION=0.1.rc1
+    container_name: clicks
+    image: clicks:${CLICKS_VERSION:-latest}
+    volumes:
+      - ${PWD}/db:/var/db
+    ports:
+      - "8080:8080"
+
+volumes:
+  db:
