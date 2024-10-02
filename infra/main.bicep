@@ -30,8 +30,7 @@ param storageAccountType string = 'StandardSSD_LRS'
 // https://github.com/Azure/azure-docs-json-samples/blob/master/azure-resource-manager/linkedtemplates/readme.md
 // https://github.com/Azure/azure-quickstart-templates/blob/master/1-CONTRIBUTION-GUIDE/best-practices.md#deployment-artifacts-nested-templates-scripts
 @description('The base URI where artifacts required by this template are located. When the template is deployed using the accompanying scripts, a private location in the subscription will be used and this value will be automatically generated.')
-param _artifactsLocation string =
-'https://raw.githubusercontent.com/atrakic/azure-dokku-template/refs/heads/main/infra/main.bicep' //deployment().properties.templateLink.uri
+param _artifactsLocation string = 'https://raw.githubusercontent.com/atrakic/azure-dokku-template/refs/heads/main/infra/main.bicep' //deployment().properties.templateLink.uri
 
 @description('The sasToken required to access _artifactsLocation.  When the template is deployed using the accompanying scripts, a sasToken will be automatically generated.')
 @secure()
