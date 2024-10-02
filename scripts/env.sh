@@ -1,5 +1,5 @@
 # Description: Environment variables for the scripts
-myapp=${1:-myapp}
+myapp=${1:-clicks}
 your_cert_email=""  # your email address for letsencrypt
 s3_backup_bucket="" # AWS s3 bucket for backups
 
